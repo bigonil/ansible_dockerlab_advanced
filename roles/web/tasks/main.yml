@@ -1,0 +1,17 @@
+- name: Install HTTP server
+  package:
+    name: "{{ web_package }}"
+    state: present
+
+- name: Create web root
+  file:
+    path: /var/www
+    state: directory
+
+- name: Deploy index page
+  template:
+    src: index.html.j2
+    dest: /var/www/index.html
+
+- name: Start HTTPD
+  shell: busybox httpd -f -p {{ web_port }} &

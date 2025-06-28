@@ -1,0 +1,12 @@
+- name: Install useful packages
+  package:
+    name: [curl, nano]
+    state: present
+
+- name: Create node info
+  copy:
+    dest: /etc/node-info.txt
+    content: |
+      Hostname: {{ ansible_hostname }}
+      IP: {{ ansible_default_ipv4.address }}
+      RAM: {{ ansible_memtotal_mb }} MB

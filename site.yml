@@ -1,0 +1,7 @@
+- hosts: myhosts
+  roles:
+    - common
+
+- hosts: webservers
+  roles:
+    - web
