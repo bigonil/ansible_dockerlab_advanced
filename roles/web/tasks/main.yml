@@ -1,17 +1,31 @@
-- name: Install HTTP server
+- name: Install lighttpd
   package:
-    name: "{{ web_package }}"
+    name: lighttpd
     state: present
 
 - name: Create web root
   file:
     path: /var/www
     state: directory
+    mode: '0755'
 
 - name: Deploy index page
   template:
     src: index.html.j2
-    dest: /var/www/index.html
+    dest: /var/www/localhost/htdocs/index.html
+    mode: '0644'
 
-- name: Start HTTPD
-  shell: busybox httpd -f -p {{ web_port }} &
+- name: Set custom web root
+  replace:
+    path: /etc/lighttpd/lighttpd.conf
+    regexp: '"/var/www/localhost/htdocs"'
+    replace: '"/var/www"'
+
+- name: Ensure index.html is default
+  lineinfile:
+    path: /etc/lighttpd/lighttpd.conf
+    regexp: '^index-file.names'
+    line: 'index-file.names = ( "index.html" )'
+
+- name: Start lighttpd
+  command: lighttpd -f /etc/lighttpd/lighttpd.conf
