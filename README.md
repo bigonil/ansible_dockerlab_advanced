@@ -103,8 +103,3 @@ Creato da **Luca Bigoni**
 *Esercizio avanzato per laboratorio Ansible + Docker*
 
 ```
-
----
-
-✅ Questo `README.md` è pronto per essere committato e pubblicato. Vuoi che ti generi anche un badge di Docker Hub o aggiunta di `LICENSE` standard MIT/GPL?
-```
